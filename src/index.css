@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', 'Segoe UI', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --color-ink-950: #07090e;
+  --color-ink-900: #0c1018;
+  --color-ink-850: #10151f;
+  --color-ink-800: #151b27;
+  --color-ink-700: #212938;
+  --color-ink-600: #2e384a;
+  --color-ink-500: #4c586d;
+  --color-ink-400: #7b879b;
+  --color-ink-300: #a7b1c2;
+  --color-ink-200: #cdd4df;
+
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-bad: #f87171;
+}
+
+/* Accento per traccia: viola .NET, ciano Frontend, verde per il Misto */
+.track-scope { --accent: #34d399; }
+.track-scope[data-track='A'] { --accent: #a78bfa; }
+.track-scope[data-track='B'] { --accent: #22d3ee; }
+
+html { color-scheme: dark; }
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgb(167 139 250 / 0.07), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgb(34 211 238 / 0.05), transparent 60%),
+    var(--color-ink-950);
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: color-mix(in oklab, var(--accent, #a78bfa) 35%, transparent); }
+:focus-visible { outline: 2px solid var(--accent, #a78bfa); outline-offset: 2px; border-radius: 6px; }
+
+/* ── Syntax highlighting (tema scuro, stile editor) ── */
+.hljs { color: #d6deeb; background: transparent; }
+.hljs-comment, .hljs-quote { color: #637777; font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in, .hljs-meta .hljs-keyword { color: #c792ea; }
+.hljs-type, .hljs-title.class_, .hljs-class .hljs-title { color: #ffcb6b; }
+.hljs-title, .hljs-title.function_, .hljs-section { color: #82aaff; }
+.hljs-string, .hljs-regexp, .hljs-template-variable, .hljs-addition { color: #c3e88d; }
+.hljs-number, .hljs-literal, .hljs-symbol, .hljs-bullet { color: #f78c6c; }
+.hljs-attr, .hljs-attribute, .hljs-variable, .hljs-property { color: #7fdbca; }
+.hljs-tag, .hljs-name, .hljs-selector-id, .hljs-selector-class { color: #7fdbca; }
+.hljs-params { color: #d6deeb; }
+.hljs-meta, .hljs-meta .hljs-string { color: #89ddff; }
+.hljs-deletion { color: #ef5350; }
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }
+
+/* Scrollbar discreta */
+* { scrollbar-width: thin; scrollbar-color: var(--color-ink-600) transparent; }
