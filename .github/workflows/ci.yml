@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Nessun package-lock.json nel repo: npm install (sostituibile con `npm ci` dopo aver committato il lockfile)
+      - name: Install
+        run: npm install --no-audit --no-fund
+
+      - name: Test (Vitest)
+        run: npm test
+
+      - name: Build (tsc --noEmit + vite build)
+        run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 7
