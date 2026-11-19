@@ -46,12 +46,12 @@ export function ExamTab({ phase, progress }: { phase: Phase; progress: PhaseProg
             <p className="font-semibold text-warn">🛡️ Test di Verifica in corso — nessun aiuto</p>
             <p className="text-xs text-ink-400">Puoi cambiare risposta fino alla consegna. Il feedback arriva solo nella pagella.</p>
           </div>
-          <div className="flex flex-wrap gap-1.5" aria-label="Navigazione domande">
+          <div className="grid grid-cols-5 gap-1.5 max-sm:w-full sm:flex sm:flex-wrap" aria-label="Navigazione domande">
             {exam.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`h-8 w-8 rounded-md font-mono text-xs ${
+                className={`h-10 w-10 rounded-md font-mono text-sm sm:h-8 sm:w-8 sm:text-xs ${
                   i === current ? 'bg-[var(--accent)] text-ink-950' : answers[i] !== null ? 'bg-ink-700 text-slate-100' : 'border border-ink-600 text-ink-400'
                 }`}
               >

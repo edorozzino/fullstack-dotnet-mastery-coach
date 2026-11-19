@@ -24,6 +24,12 @@ describe('Header', () => {
     expect(out).toContain('Junior Dev');
     expect(out).toContain('XP');
   });
+  it('su smartphone offre una tab bar in basso con tutte le sezioni e la sezione corrente evidenziata', () => {
+    const out = render(<Header route={{ name: 'training' }} />);
+    const bar = out.slice(out.indexOf('data-mobile-nav'));
+    for (const label of ['Home', 'Allena', 'Confronto', 'AI', 'Impost.']) expect(bar).toContain(label);
+    expect(bar).toMatch(/aria-current="page"[^>]*>(?:(?!<\/a>).)*Allena/);
+  });
 });
 
 describe('Dashboard', () => {
@@ -84,5 +90,10 @@ describe('CompareView', () => {
     expect(out).toContain('React');
     expect(out).toContain('Angular');
     expect(out).toContain('Vue');
+  });
+  it('su smartphone mostra una scheda per aspetto con i tre framework (niente scroll orizzontale)', () => {
+    const out = render(<CompareView />);
+    expect(out).toContain('data-compare-cards');
+    expect((out.match(/data-compare-card=/g) ?? []).length).toBe(COMPARISON_TABLE.length);
   });
 });

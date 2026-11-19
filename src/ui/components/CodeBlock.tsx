@@ -20,7 +20,7 @@ export function CodeBlock({ code, lang, title, maxHeight }: Props) {
   }
 
   return (
-    <figure className="group overflow-hidden rounded-xl border border-ink-700 bg-ink-950 shadow-inner" data-lang={lang}>
+    <figure className="group min-w-0 max-w-full overflow-hidden rounded-xl border border-ink-700 bg-ink-950 shadow-inner" data-lang={lang}>
       <figcaption className="flex items-center justify-between gap-2 border-b border-ink-700 bg-ink-900/80 px-3 py-1.5">
         <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-ink-400">
           <span className="flex gap-1" aria-hidden>
@@ -39,7 +39,7 @@ export function CodeBlock({ code, lang, title, maxHeight }: Props) {
           {copied === 'ok' ? '✓ Copiato' : copied === 'fail' ? 'Copia non riuscita' : 'Copia codice'}
         </button>
       </figcaption>
-      <pre className="overflow-auto p-4 text-[13px] leading-relaxed" style={maxHeight ? { maxHeight } : undefined}>
+      <pre className="overflow-auto p-3 text-[12.5px] sm:p-4 sm:text-[13px] leading-relaxed" style={maxHeight ? { maxHeight } : undefined}>
         <code className="hljs font-mono" dangerouslySetInnerHTML={{ __html: highlight(code, lang) }} />
       </pre>
     </figure>

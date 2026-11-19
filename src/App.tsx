@@ -44,10 +44,10 @@ export default function App() {
   return (
     <div data-track={state.activeTrack} className="track-scope min-h-screen">
       <Header route={route} />
-      <main className="mx-auto max-w-7xl px-4 py-8">
+      <main className="mx-auto max-w-7xl px-4 py-5 pb-24 sm:py-8">
         <View route={route} />
       </main>
-      <footer className="mx-auto max-w-7xl px-4 pb-10 pt-4 font-mono text-[11px] text-ink-500">
+      <footer className="mx-auto hidden max-w-7xl px-4 pb-10 pt-4 sm:block font-mono text-[11px] text-ink-500">
         FullStack &amp; .NET Mastery Coach · progressi salvati in locale · nessun gate si sblocca senza studio, lab e verifica.
       </footer>
     </div>

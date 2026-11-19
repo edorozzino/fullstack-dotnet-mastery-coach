@@ -14,11 +14,11 @@ import { Badge, Button, Card, EmptyState, ProgressBar } from '../components/ui';
 import { ComparisonTable } from './CompareView';
 import { ExamTab } from './ExamTab';
 
-const TABS: { id: PhaseTab; label: string }[] = [
-  { id: 'study', label: '📘 Studio & Ripasso' },
-  { id: 'labs', label: '⌨️ IDE Code Labs' },
-  { id: 'quiz', label: '🎯 Quiz' },
-  { id: 'exam', label: '🛡️ Gate Exam' },
+const TABS: { id: PhaseTab; label: string; short: string }[] = [
+  { id: 'study', label: '📘 Studio & Ripasso', short: '📘 Studio' },
+  { id: 'labs', label: '⌨️ IDE Code Labs', short: '⌨️ Lab' },
+  { id: 'quiz', label: '🎯 Quiz', short: '🎯 Quiz' },
+  { id: 'exam', label: '🛡️ Gate Exam', short: '🛡️ Esame' },
 ];
 
 // ─── Studio ──────────────────────────────────────────────────────────────────
@@ -32,8 +32,8 @@ function StudyTab({ phase, progress }: { phase: Phase; progress: PhaseProgress }
     <div className="grid gap-4">
       <div className="flex flex-wrap items-center gap-2">
         <Button variant={mode === 'cards' ? 'primary' : 'outline'} onClick={() => setMode('cards')}>Schede Concept</Button>
-        <Button variant={mode === 'flash' ? 'primary' : 'outline'} onClick={() => setMode('flash')}>⚡ Ripasso Flash (Active Recall)</Button>
-        <span className="ml-auto font-mono text-xs text-ink-400">
+        <Button variant={mode === 'flash' ? 'primary' : 'outline'} onClick={() => setMode('flash')}>⚡ Ripasso Flash<span className="hidden sm:inline"> (Active Recall)</span></Button>
+        <span className="w-full font-mono text-xs text-ink-400 sm:ml-auto sm:w-auto">
           {cards.filter((c) => progress.studiedCards.includes(c.id)).length}/{cards.length} schede ripassate
         </span>
       </div>
@@ -251,7 +251,7 @@ export function PhaseView({ phaseId, tab }: { phaseId: string; tab: PhaseTab }) 
               ← {track.shortTitle}
             </a>
             <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-[var(--accent)]">Fase {phase.id}</p>
-            <h1 className="text-2xl font-bold text-slate-50 sm:text-3xl">{phase.title}</h1>
+            <h1 className="text-[26px] font-bold leading-tight text-slate-50 [text-wrap:balance] sm:text-3xl">{phase.title}</h1>
             <p className="text-sm text-ink-300">{phase.subtitle}</p>
           </div>
           <div className="flex items-center gap-2">
@@ -262,7 +262,25 @@ export function PhaseView({ phaseId, tab }: { phaseId: string; tab: PhaseTab }) 
             {status === 'passed' && <Badge tone="ok">✓ Superata</Badge>}
           </div>
         </div>
-        {!needsBranch && <GateChecklist requirements={requirements(phase, progress, state.srs)} />}
+        {!needsBranch && (() => {
+          const reqs = requirements(phase, progress, state.srs);
+          return (
+            <>
+              <div className="hidden sm:block"><GateChecklist requirements={reqs} /></div>
+              {/* Smartphone: checklist richiudibile per non spingere giù i contenuti */}
+              <details className="rounded-xl border border-ink-700 bg-ink-900 sm:hidden">
+                <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-3 text-sm">
+                  <span className="font-semibold text-slate-100">Requisiti di sblocco</span>
+                  <span className="flex items-center gap-1.5">
+                    {reqs.map((r) => <i key={r.key} className={`h-2 w-5 rounded-full ${r.done ? 'bg-ok' : 'bg-ink-600'}`} />)}
+                    <span className="ml-1 font-mono text-xs text-ink-400">{reqs.filter((r) => r.done).length}/4 ▾</span>
+                  </span>
+                </summary>
+                <div className="p-2 pt-0"><GateChecklist requirements={reqs} compact /></div>
+              </details>
+            </>
+          );
+        })()}
       </header>
 
       {needsBranch ? (
@@ -277,15 +295,16 @@ export function PhaseView({ phaseId, tab }: { phaseId: string; tab: PhaseTab }) 
               ⚠ Sessione di Recupero Obbligatoria attiva su {progress.recovery.modules.length} moduli — vai al tab Quiz per completarla.
             </a>
           )}
-          <nav className="flex gap-1 overflow-x-auto rounded-xl border border-ink-700 bg-ink-900 p-1" aria-label="Sezioni della fase">
+          <nav className="grid grid-cols-4 gap-1 rounded-xl border border-ink-700 bg-ink-900 p-1 sm:flex" aria-label="Sezioni della fase">
             {TABS.map((t) => (
               <a
                 key={t.id}
                 href={formatHash({ name: 'phase', phaseId: phase.id, tab: t.id })}
                 aria-current={t.id === tab ? 'page' : undefined}
-                className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm transition ${t.id === tab ? 'bg-ink-700 text-slate-50' : 'text-ink-400 hover:text-slate-200'}`}
+                className={`whitespace-nowrap rounded-lg px-1 py-2.5 text-center text-[13px] transition sm:px-4 sm:py-2 sm:text-sm ${t.id === tab ? 'bg-ink-700 text-slate-50' : 'text-ink-400 hover:text-slate-200'}`}
               >
-                {t.label}
+                <span className="sm:hidden">{t.short}</span>
+                <span className="hidden sm:inline">{t.label}</span>
               </a>
             ))}
           </nav>

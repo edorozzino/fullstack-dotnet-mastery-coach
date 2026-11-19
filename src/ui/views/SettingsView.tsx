@@ -5,7 +5,7 @@ import { DEFAULT_MODELS } from '../../ai/aiCoach';
 import { useApp } from '../AppContext';
 import { Button, Card, SectionTitle } from '../components/ui';
 
-const field = 'w-full rounded-lg border border-ink-600 bg-ink-950 px-3 py-2 text-sm text-slate-100 placeholder:text-ink-500 focus:border-[var(--accent)] focus:outline-none';
+const field = 'w-full rounded-lg border border-ink-600 bg-ink-950 px-3 py-2.5 text-base text-slate-100 sm:py-2 sm:text-sm placeholder:text-ink-500 focus:border-[var(--accent)] focus:outline-none';
 
 export function SettingsView() {
   const { state, dispatch, today } = useApp();

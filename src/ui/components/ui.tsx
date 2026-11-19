@@ -29,7 +29,7 @@ export function Button({ variant = 'primary', className = '', ...rest }: ButtonH
 }
 
 export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-2xl border border-ink-700 bg-ink-900/70 p-5 ${className}`}>{children}</div>;
+  return <div className={`rounded-2xl border border-ink-700 bg-ink-900/70 p-4 sm:p-5 ${className}`}>{children}</div>;
 }
 
 export function Badge({ children, tone = 'neutral' }: { children: ReactNode; tone?: 'neutral' | 'ok' | 'warn' | 'bad' | 'accent' }) {
@@ -40,7 +40,7 @@ export function Badge({ children, tone = 'neutral' }: { children: ReactNode; ton
     bad: 'border-bad/50 text-bad',
     accent: 'border-[var(--accent)]/60 text-[var(--accent)]',
   }[tone];
-  return <span className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[11px] ${t}`}>{children}</span>;
+  return <span className={`inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full border px-2 py-0.5 font-mono text-[11px] ${t}`}>{children}</span>;
 }
 
 export function SectionTitle({ kicker, title, children }: { kicker?: string; title: string; children?: ReactNode }) {

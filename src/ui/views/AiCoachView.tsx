@@ -11,7 +11,7 @@ import { Button, Card, EmptyState, SectionTitle } from '../components/ui';
 
 type Output = { kind: 'quiz' | 'interview'; questions: Question[] } | { kind: 'lab'; lab: CodeLab } | null;
 
-const field = 'w-full rounded-lg border border-ink-600 bg-ink-950 px-3 py-2 text-sm text-slate-100 focus:border-[var(--accent)] focus:outline-none';
+const field = 'w-full rounded-lg border border-ink-600 bg-ink-950 px-3 py-2.5 text-base text-slate-100 sm:py-2 sm:text-sm focus:border-[var(--accent)] focus:outline-none';
 
 export function AiCoachView() {
   const { state, dispatch, today } = useApp();

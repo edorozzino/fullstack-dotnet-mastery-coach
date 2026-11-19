@@ -19,7 +19,7 @@ export function GateChecklist({ requirements, compact }: { requirements: Require
                 <span aria-hidden>{ICON[r.key]}</span>
                 {r.label}
               </span>
-              <span className={`font-mono text-xs ${r.done ? 'text-ok' : 'text-ink-400'}`}>{r.done ? '✓ fatto' : 'da completare'}</span>
+              <span className={`shrink-0 whitespace-nowrap font-mono text-xs ${r.done ? 'text-ok' : 'text-ink-400'}`}>{r.done ? '✓ fatto' : 'da completare'}</span>
             </div>
             {!compact && <p className="mt-1 text-xs text-ink-400">{r.detail}</p>}
             <ProgressBar value={pct} tone={r.done ? 'ok' : 'accent'} className="mt-2" />

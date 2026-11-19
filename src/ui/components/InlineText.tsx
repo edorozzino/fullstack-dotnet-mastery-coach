@@ -7,7 +7,7 @@ export function InlineText({ text, className }: { text: string; className?: stri
     <span className={className}>
       {parts.map((p, i) =>
         p.startsWith('`') && p.endsWith('`') && p.length > 1 ? (
-          <code key={i} className="rounded bg-ink-800 px-1 py-px font-mono text-[0.9em] text-[var(--accent)]">
+          <code key={i} className="rounded bg-ink-800 px-1 py-px [overflow-wrap:anywhere] font-mono text-[0.9em] text-[var(--accent)]">
             {p.slice(1, -1)}
           </code>
         ) : (

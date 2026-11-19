@@ -23,7 +23,7 @@ export function QuestionBody({ q }: { q: Question }) {
         {q.interview && <Badge tone="warn">★ Classica da colloquio</Badge>}
         {q.generated && <Badge>✦ AI</Badge>}
       </div>
-      <p className="text-lg font-semibold leading-snug text-slate-50"><InlineText text={q.prompt} /></p>
+      <p data-question-prompt className="text-[17px] font-semibold leading-snug text-slate-50 sm:text-lg"><InlineText text={q.prompt} /></p>
       {q.code && <CodeBlock code={q.code} lang={q.codeLang ?? 'text'} />}
     </>
   );
@@ -69,8 +69,8 @@ export function QuizRunner({ questions, onAnswer, onRestart, emptyTitle, emptyTe
   return (
     <Card className="grid gap-4">
       <div className="flex items-center justify-between gap-3">
-        <span className="font-mono text-xs text-ink-400">Domanda {i + 1}/{questions.length}</span>
-        <ProgressBar value={(i / questions.length) * 100} className="max-w-48" />
+        <span className="whitespace-nowrap font-mono text-xs text-ink-400">Domanda {i + 1}/{questions.length}</span>
+        <ProgressBar value={(i / questions.length) * 100} className="max-w-48 flex-1" />
         <span className="font-mono text-xs text-ok">{score} ✓</span>
       </div>
       <QuestionBody q={q} />
